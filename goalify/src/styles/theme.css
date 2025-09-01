@@ -1,9 +1,17 @@
-:root {
-  --background: #ffffff;
-  --text: #000000;
+/* Default Light */
+body[data-theme="light"] {
+  background: #f9f9f9;
+  color: #222;
 }
 
-[data-theme="dark"] {
-  --background: #121212;
-  --text: #ffffff;
+/* Dark Mode */
+body[data-theme="dark"] {
+  background: #1e1e1e;
+  color: #eee;
+}
+
+/* Creative Theme */
+body[data-theme="creative"] {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
 }
