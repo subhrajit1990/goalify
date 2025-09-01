@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import StickyNote from "./StickyNote";
 import { scheduleReminder, cancelReminder } from "../services/reminder";
-import "./styles/TaskBoard.css";
+import "../styles/TaskBoard.css";
 
 /**
  * Grid & collision logic:
