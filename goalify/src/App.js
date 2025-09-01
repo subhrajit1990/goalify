@@ -34,8 +34,8 @@ function App() {
         </button>
       </header>
 
-      {/* Input for adding new goals */}
-      <TaskInput addTask={addTask} />
+      {/* Input for adding new goals 
+      <TaskInput addTask={addTask} /> */}
 
       {/* Board showing sticky notes */}
       <TaskBoard tasks={tasks} updateTask={updateTask} deleteTask={deleteTask} />
