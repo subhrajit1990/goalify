@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/goalify/static/css/main.1adfed3f.css",
-    "main.js": "/goalify/static/js/main.545f03bc.js",
+    "main.css": "/goalify/static/css/main.55ea93fc.css",
+    "main.js": "/goalify/static/js/main.bb6ab151.js",
     "index.html": "/goalify/index.html",
-    "main.1adfed3f.css.map": "/goalify/static/css/main.1adfed3f.css.map",
-    "main.545f03bc.js.map": "/goalify/static/js/main.545f03bc.js.map"
+    "main.55ea93fc.css.map": "/goalify/static/css/main.55ea93fc.css.map",
+    "main.bb6ab151.js.map": "/goalify/static/js/main.bb6ab151.js.map"
   },
   "entrypoints": [
-    "static/css/main.1adfed3f.css",
-    "static/js/main.545f03bc.js"
+    "static/css/main.55ea93fc.css",
+    "static/js/main.bb6ab151.js"
   ]
 }
