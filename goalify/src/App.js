@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import TaskInput from "./components/TaskInput";
 import TaskBoard from "./components/TaskBoard";
 import Settings from "./components/Settings";
+import "./App.css";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -8,14 +10,35 @@ function App() {
   const [font, setFont] = useState("sans-serif");
   const [showSettings, setShowSettings] = useState(false);
 
+  // Add new task
+  const addTask = (task) => {
+    setTasks([...tasks, task]);
+  };
+
+  // Update task (complete, reschedule, etc.)
+  const updateTask = (id, updatedFields) => {
+    setTasks(tasks.map((t) => (t.id === id ? { ...t, ...updatedFields } : t)));
+  };
+
+  // Delete task
+  const deleteTask = (id) => {
+    setTasks(tasks.filter((t) => t.id !== id));
+  };
+
   return (
     <div className={`app theme-${theme}`} style={{ fontFamily: font }}>
-      <header>
-        <h1>Goalify</h1>
-        <button onClick={() => setShowSettings(true)}>⚙️ Settings</button>
+      <header className="app-header">
+        <h1>🎯 Goalify</h1>
+        <button className="settings-btn" onClick={() => setShowSettings(true)}>
+          ⚙️ Settings
+        </button>
       </header>
 
-      <TaskBoard tasks={tasks} updateTask={() => {}} deleteTask={() => {}} />
+      {/* Input for adding new goals */}
+      <TaskInput addTask={addTask} />
+
+      {/* Board showing sticky notes */}
+      <TaskBoard tasks={tasks} updateTask={updateTask} deleteTask={deleteTask} />
 
       {/* Settings modal */}
       <Settings

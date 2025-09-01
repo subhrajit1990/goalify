@@ -1,0 +1,70 @@
+.task-input {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  flex-wrap: wrap;
+  max-width: 700px;
+}
+
+.goal-input {
+  flex: 1;
+  min-width: 200px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  background: linear-gradient(145deg, #fff, #f0f0f0);
+  box-shadow: inset 3px 3px 6px #ccc, inset -3px -3px 6px #fff;
+  transition: all 0.3s ease;
+}
+
+.goal-input:focus {
+  outline: none;
+  transform: scale(1.02);
+  box-shadow: 0 0 10px rgba(66, 153, 225, 0.7);
+}
+
+.time-picker {
+  padding: 10px 14px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  background: linear-gradient(145deg, #fff, #f0f0f0);
+  box-shadow: inset 3px 3px 6px #ccc, inset -3px -3px 6px #fff;
+  transition: all 0.3s ease;
+}
+
+.time-picker:focus {
+  outline: none;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(255, 100, 180, 0.6);
+}
+
+.add-btn {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(106, 17, 203, 0.4);
+  transition: all 0.25s ease;
+}
+
+.add-btn:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 6px 15px rgba(37, 117, 252, 0.5);
+}
+
+.add-btn:active {
+  transform: translateY(1px);
+}

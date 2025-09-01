@@ -1,47 +1,44 @@
 import React, { useState } from "react";
+import "../styles/TaskInput.css";
 
-function TaskInput({ addTask }) {
-  const [title, setTitle] = useState("");
+export default function TaskInput({ addTask }) {
+  const [text, setText] = useState("");
   const [time, setTime] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!title.trim()) return;
+    if (!text.trim() || !time) return;
+
     const newTask = {
       id: Date.now(),
-      title,
+      text,
       time,
-      status: "pending",
-      x: 50,
-      y: 50,
-      color: randomColor()
+      completed: false,
     };
+
     addTask(newTask);
-    setTitle("");
+    setText("");
     setTime("");
   };
 
-  const randomColor = () => {
-    const colors = ["#FFEB3B", "#FFCDD2", "#C8E6C9", "#BBDEFB", "#D1C4E9"];
-    return colors[Math.floor(Math.random() * colors.length)];
-  };
-
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="task-input" onSubmit={handleSubmit}>
       <input
         type="text"
-        placeholder="Enter your goal..."
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        placeholder="✍️ What’s your next big goal?"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        className="goal-input"
       />
       <input
         type="time"
         value={time}
         onChange={(e) => setTime(e.target.value)}
+        className="time-picker"
       />
-      <button type="submit">Add Goal</button>
+      <button type="submit" className="add-btn">
+        🚀 Add Goal
+      </button>
     </form>
   );
 }
-
-export default TaskInput;
