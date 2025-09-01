@@ -1,0 +1,127 @@
+:root{
+  --accent: #a86ef8;
+  --bg-accent-1: #fff2ff;
+  --bg-accent-2: #eef8ff;
+  --card: #ffffff;
+  --text: #1b0932;
+  --muted: #6b5b73;
+  --glass: rgba(255,255,255,0.6);
+  --shadow: rgba(30,20,60,0.12);
+}
+[data-theme="dark"]{
+  --accent: #7ae3ff;
+  --bg-accent-1: #0b1020;
+  --bg-accent-2: #121827;
+  --card: #0f141a;
+  --text: #e9f3ff;
+  --muted: #9fb7cf;
+  --glass: rgba(255,255,255,0.03);
+  --shadow: rgba(0,0,0,0.6);
+}
+
+html,body,#root{ height:100%; }
+body{
+  margin:0;
+  background: linear-gradient(160deg, var(--bg-accent-1), var(--bg-accent-2));
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+.app-root { display:flex; min-height:100vh; gap:18px; padding:18px; box-sizing:border-box; }
+.sidebar {
+  width:300px; min-width:240px;
+  border-radius:18px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+  box-shadow: 0 10px 30px var(--shadow);
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+  backdrop-filter: blur(6px);
+}
+@media (max-width:900px){
+  .app-root{ flex-direction:column; padding:12px; }
+  .sidebar{ width:100%; flex-direction:row; justify-content:space-between; padding:12px; border-radius:12px; }
+}
+.logo {
+  font-family: "Orbitron", "Poppins", sans-serif;
+  font-weight:700;
+  font-size:28px;
+  color:var(--accent);
+  text-shadow: 0 6px 20px rgba(168,110,248,0.18);
+}
+.progress-circle{
+  background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.85));
+  border-radius:100%;
+  width:120px;
+  height:120px;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow: 0 12px 30px rgba(25,15,45,0.08);
+  font-weight:700; color:var(--text); font-size:18px;
+}
+.main{ flex:1; display:flex; flex-direction:column; gap:18px; }
+.topbar{ display:flex; justify-content:space-between; align-items:center; }
+.small{ font-size:13px; color:var(--muted); }
+.center{ text-align:center; }
+
+/* notes grid - parent container for draggable bounds */
+.notes-grid{
+  position:relative;
+  width:100%;
+  min-height: 60vh;
+  display:block;
+  padding:24px;
+  border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.15));
+  box-shadow: 0 12px 40px rgba(20,10,40,0.06);
+}
+
+/* sticky note base */
+.sticky-note {
+  width:200px; min-height:180px;
+  padding:14px; border-radius:12px;
+  box-shadow: 0 10px 24px rgba(20,10,40,0.08);
+  position:absolute; margin:0;
+  transform-origin:center;
+  transition: transform .25s ease, opacity .25s ease;
+  user-select:none;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+@keyframes float1 { 0%{transform:translateY(0px) rotate(-3deg)} 50%{transform:translateY(-10px) rotate(3deg)} 100%{transform:translateY(0px) rotate(-3deg)} }
+@keyframes float2 { 0%{transform:translateY(0px) rotate(2deg)} 50%{transform:translateY(-8px) rotate(-2deg)} 100%{transform:translateY(0px) rotate(2deg)} }
+@keyframes float3 { 0%{transform:translateY(0px) rotate(-1deg)} 50%{transform:translateY(-6px) rotate(1deg)} 100%{transform:translateY(0px) rotate(-1deg)} }
+
+/* completed and missed states */
+.sticky-note.done { opacity:0.55; filter:grayscale(0.2); text-decoration:line-through; }
+.sticky-note.missed { border-left:6px solid #ff6b6b; }
+
+/* note content */
+.sticky-note h3 { margin:0; font-size:16px; color:var(--text); }
+.sticky-note p { margin:8px 0 0; font-size:13px; color:var(--muted); }
+
+/* actions */
+.note-actions { position:absolute; bottom:8px; right:8px; display:flex; gap:6px; }
+.note-actions button { border:none; background:rgba(255,255,255,0.3); padding:6px; border-radius:8px; cursor:pointer; }
+
+/* form / input in top of board */
+.board-controls { display:flex; gap:10px; align-items:center; margin-bottom:8px; flex-wrap:wrap; }
+.input, input[type="text"], input[type="datetime-local"], select { padding:8px 10px; border-radius:8px; border:1px solid rgba(0,0,0,0.06); }
+
+/* buttons */
+.btn { background: linear-gradient(90deg,var(--accent), #6fd0ff); color:#fff; border:none; padding:8px 12px; border-radius:12px; cursor:pointer; }
+.btn.ghost { background:transparent; border:1px solid rgba(0,0,0,0.06); color:var(--text); }
+
+/* modal basics */
+.modal { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background: rgba(12,10,20,0.4); z-index:90; }
+.modal-card { width:92%; max-width:520px; background:linear-gradient(180deg,var(--card), rgba(255,255,255,0.95)); border-radius:16px; padding:18px; box-shadow:0 30px 70px rgba(10,10,40,0.25); }
+@media (max-width:600px){ .sticky-note{ width:46%; } .notes-grid{ justify-content:center } }
+
+/* ensure notes-grid is positioned relative so absolute children position accordingly */
+.notes-grid { position: relative; }
+
+/* dragging cursor improvements */
+.sticky-note { cursor: grab; }
+.sticky-note:active { cursor: grabbing; transform: scale(0.98); }
+
+/* ensure z-index stacking uses integer z values */
+.sticky-note { will-change: transform, left, top; }
