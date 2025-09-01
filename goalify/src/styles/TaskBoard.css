@@ -1,0 +1,7 @@
+.task-board {
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 300px;
+  border: 2px dashed #ccc;
+  padding: 10px;
+}

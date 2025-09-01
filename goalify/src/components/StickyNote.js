@@ -1,30 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import Draggable from "react-draggable";
 import "../styles/StickyNote.css";
 
-const COLORS = ["#FFEB3B", "#FFCDD2", "#C8E6C9", "#BBDEFB", "#FFE0B2", "#E1BEE7", "#D1FFD6", "#FFE8B9"];
+function StickyNote({ task, updateTask, deleteTask }) {
+  const [pos, setPos] = useState({ x: task.x, y: task.y });
 
-export default function StickyNote({ task, onComplete, onReschedule, onDelete, onDragStop, onDragStart, parentId, style }) {
-  const color = task.color || COLORS[Math.floor(Math.random() * COLORS.length)];
-  const statusClass = task.status === "done" ? "done" : task.status === "missed" ? "missed" : "";
+  const handleDragStop = (e, data) => {
+    setPos({ x: data.x, y: data.y });
+    updateTask(task.id, { ...task, x: data.x, y: data.y });
+  };
 
-  // defaultPosition: if task.pos exists use it, otherwise compute a random spot near top-left
-  const defaultPos = task.pos ? { x: task.pos.x, y: task.pos.y } : { x: 20 + Math.floor(Math.random() * 300), y: 20 + Math.floor(Math.random() * 200) };
+  const completeTask = () =>
+    updateTask(task.id, { ...task, status: "completed" });
 
-  // react-draggable bounds: restrict within parent by id (string). If no parentId, bounds undefined.
-  const bounds = parentId ? `#${parentId}` : undefined;
+  const rescheduleTask = () =>
+    updateTask(task.id, { ...task, status: "rescheduled" });
 
   return (
-    <Draggable defaultPosition={defaultPos} bounds={bounds} onStop={onDragStop} onStart={onDragStart}>
-      <div className={`sticky-note ${statusClass}`} style={{ background: color, ...style, zIndex: task.z || 0 }}>
+    <Draggable position={pos} onStop={handleDragStop}>
+      <div
+        className={`sticky-note ${task.status}`}
+        style={{ background: task.color }}
+      >
         <h3>{task.title}</h3>
-        <p>{task.dueAt ? new Date(task.dueAt).toLocaleString() : (task.reminderAt ? new Date(task.reminderAt).toLocaleString() : "No date")}</p>
+        {task.time && <p>⏰ {task.time}</p>}
         <div className="note-actions">
-          <button title="Complete" onClick={onComplete}>✅</button>
-          <button title="Reschedule" onClick={onReschedule}>🔄</button>
-          <button title="Delete" onClick={onDelete}>❌</button>
+          <button onClick={completeTask}>✅</button>
+          <button onClick={rescheduleTask}>📅</button>
+          <button onClick={() => deleteTask(task.id)}>🗑️</button>
         </div>
       </div>
     </Draggable>
   );
 }
+
+export default StickyNote;

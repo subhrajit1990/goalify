@@ -1,0 +1,9 @@
+:root {
+  --background: #ffffff;
+  --text: #000000;
+}
+
+[data-theme="dark"] {
+  --background: #121212;
+  --text: #ffffff;
+}

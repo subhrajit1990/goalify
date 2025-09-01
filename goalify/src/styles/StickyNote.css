@@ -1,26 +1,22 @@
-.sticky-note { 
-  width:200px; min-height:160px;
-  padding:12px; border-radius:12px;
-  box-shadow: 0 10px 24px rgba(20,10,40,0.08);
-  position: absolute; margin:0;
-  transform-origin:center;
-  transition: transform .25s ease, opacity .25s ease;
-  user-select:none;
-  border: 1px solid rgba(255,255,255,0.4);
+.sticky-note {
+  width: 180px;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
+  cursor: grab;
+  transition: transform 0.2s;
 }
-.sticky-note h3 { margin:0; font-size:16px; color:var(--text); }
-.sticky-note p { margin:8px 0 0; font-size:13px; color:var(--muted); }
 
-/* quick grab cursor */
-.sticky-note { cursor: grab; }
-.sticky-note:active { cursor: grabbing; transform: scale(0.99); }
+.sticky-note h3 {
+  margin: 0;
+}
 
-/* states */
-.sticky-note.done { opacity:0.55; filter:grayscale(0.2); text-decoration:line-through; }
-.sticky-note.missed { border-left:6px solid #ff6b6b; }
+.sticky-note.pending { opacity: 0.9; }
+.sticky-note.completed { text-decoration: line-through; opacity: 0.6; }
+.sticky-note.rescheduled { border: 2px dashed #333; }
 
-/* actions */
-.note-actions { position:absolute; bottom:8px; right:8px; display:flex; gap:6px; }
-.note-actions button { border:none; background:rgba(255,255,255,0.3); padding:6px; border-radius:8px; cursor:pointer; }
-
-/* animations names referenced from styles.css */
+.note-actions button {
+  margin: 4px;
+  cursor: pointer;
+}
