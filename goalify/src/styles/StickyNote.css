@@ -1,22 +1,69 @@
+/* Sticky note wrapper */
 .sticky-note {
-  width: 180px;
-  padding: 10px;
+  width: 200px;
+  min-height: 120px;
+  padding: 15px;
   margin: 10px;
-  border-radius: 8px;
-  box-shadow: 2px 4px 8px rgba(0,0,0,0.2);
-  cursor: grab;
-  transition: transform 0.2s;
+  border-radius: 10px;
+  background: var(--note-color, #fffa8b);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  font-family: 'Comic Sans MS', 'Segoe UI', sans-serif;
+  transform: rotate(0deg);
+  animation: wave 4s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
 }
 
-.sticky-note h3 {
-  margin: 0;
+/* Random tilt */
+.tilt-left { transform: rotate(-2deg); }
+.tilt-right { transform: rotate(2deg); }
+
+/* Sticky note waving animation */
+@keyframes wave {
+  0%   { transform: translateY(0) rotate(-1deg); }
+  50%  { transform: translateY(-5px) rotate(1deg); }
+  100% { transform: translateY(0) rotate(-1deg); }
 }
 
-.sticky-note.pending { opacity: 0.9; }
-.sticky-note.completed { text-decoration: line-through; opacity: 0.6; }
-.sticky-note.rescheduled { border: 2px dashed #333; }
+/* Note content */
+.note-content {
+  margin-bottom: 12px;
+}
 
-.note-actions button {
-  margin: 4px;
+.note-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 5px;
+  color: #333;
+}
+
+.note-time {
+  font-size: 14px;
+  color: #444;
+}
+
+/* Action buttons */
+.note-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.note-btn {
+  border: none;
   cursor: pointer;
+  font-size: 18px;
+  padding: 5px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.7);
+  transition: transform 0.2s ease, background 0.3s ease;
 }
+
+.note-btn:hover {
+  transform: scale(1.2);
+  background: rgba(255,255,255,1);
+}
+
+/* Specific colors */
+.note-btn.complete { color: #28a745; }   /* Green */
+.note-btn.reschedule { color: #f0ad4e; } /* Orange */
+.note-btn.delete { color: #dc3545; }     /* Red */
