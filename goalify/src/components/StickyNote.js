@@ -1,42 +1,22 @@
-import React from "react";
+import React, { useRef } from "react";
+import Draggable from "react-draggable";
 import "../styles/StickyNote.css";
 
 export default function StickyNote({ task, onComplete, onDelete, onReschedule }) {
-  const randomTilt = Math.random() > 0.5 ? "tilt-left" : "tilt-right";
+  const nodeRef = useRef(null); // ✅ create ref
 
   return (
-    <div
-      className={`sticky-note ${randomTilt}`}
-      style={{ "--note-color": task.color }}
-    >
-      <div className="note-content">
-        <h4 className="note-title">{task.text}</h4>
-        <p className="note-time">⏰ {task.time}</p>
-      </div>
+    <Draggable nodeRef={nodeRef}>
+      <div ref={nodeRef} className={`sticky-note ${task.completed ? "done" : ""}`}>
+        <h4>{task.text}</h4>
+        <p>⏰ {task.time}</p>
 
-      <div className="note-actions">
-        <button
-          className="note-btn complete"
-          onClick={() => onComplete(task.id)}
-          title="Mark as Done"
-        >
-          ✅
-        </button>
-        <button
-          className="note-btn reschedule"
-          onClick={() => onReschedule(task.id)}
-          title="Reschedule"
-        >
-          🔄
-        </button>
-        <button
-          className="note-btn delete"
-          onClick={() => onDelete(task.id)}
-          title="Delete"
-        >
-          🗑️
-        </button>
+        <div className="note-actions">
+          <button onClick={() => onComplete(task.id)}>✅</button>
+          <button onClick={() => onReschedule(task.id)}>📅</button>
+          <button onClick={() => onDelete(task.id)}>🗑️</button>
+        </div>
       </div>
-    </div>
+    </Draggable>
   );
 }
