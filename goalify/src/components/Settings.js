@@ -3,13 +3,13 @@ import { ThemeContext } from "../context/ThemeContext";
 import "../styles/Settings.css";
 
 export default function Settings() {
-  const { theme, setTheme } = useContext(ThemeContext);
+  const { theme, setTheme } = useContext(ThemeContext);  // ✅ works now
   const [open, setOpen] = useState(false);
 
   const handleThemeChange = (e) => {
     const selectedTheme = e.target.value;
     setTheme(selectedTheme);
-    document.body.setAttribute("data-theme", selectedTheme); // ✅ Apply globally
+    document.body.setAttribute("data-theme", selectedTheme);
   };
 
   return (

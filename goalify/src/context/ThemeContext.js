@@ -6,7 +6,7 @@ export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    document.body.setAttribute("data-theme", theme); // ✅ Always apply
+    document.body.setAttribute("data-theme", theme);
   }, [theme]);
 
   return (
