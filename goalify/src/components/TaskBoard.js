@@ -1,84 +1,50 @@
-import React, { useState } from "react";
-import Draggable from "react-draggable";
+import React from "react";
 import StickyNote from "./StickyNote";
 import "../styles/TaskBoard.css";
 
-const noteColors = ["#FFFA8B", "#FFD3B6", "#B5EAD7", "#C7CEEA", "#FFB6B9"];
-
-export default function TaskBoard() {
-  const [tasks, setTasks] = useState([]);
-  const [input, setInput] = useState("");
-  const [time, setTime] = useState("");
-
-  const addTask = () => {
-    if (!input.trim() || !time) return;
-
-    const newTask = {
-      id: Date.now(),
-      text: input,
-      time: time,
-      color: noteColors[Math.floor(Math.random() * noteColors.length)],
-    };
-
-    setTasks([...tasks, newTask]);
-    setInput("");
-    setTime("");
+export default function TaskBoard({ tasks = [], updateTask, deleteTask }) {
+  // If parent didn't supply updateTask/deleteTask, set safe fallbacks:
+  const safeUpdate = typeof updateTask === "function" ? updateTask : (id, patch) => {
+    console.warn("updateTask not provided:", id, patch);
+  };
+  const safeDelete = typeof deleteTask === "function" ? deleteTask : (id) => {
+    console.warn("deleteTask not provided:", id);
   };
 
-  const handleComplete = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
+  function handleComplete(id) {
+    // example: mark done
+    // read the previous values (you may want to pass the whole task)
+    safeUpdate(id, { status: "done" });
+  }
 
-  const handleDelete = (id) => {
-    setTasks(tasks.filter((task) => task.id !== id));
-  };
+  function handleReschedule(id) {
+    const newDate = prompt("Enter new date/time (YYYY-MM-DDTHH:MM)", new Date().toISOString().slice(0,16));
+    if (!newDate) return;
+    safeUpdate(id, { dueAt: newDate, reminderAt: newDate, status: "active" });
+  }
 
-  const handleReschedule = (id) => {
-    const newTime = prompt("Enter new time (HH:MM):");
-    if (newTime) {
-      setTasks(
-        tasks.map((task) =>
-          task.id === id ? { ...task, time: newTime } : task
-        )
-      );
-    }
-  };
+  function handleDelete(id) {
+    if (!window.confirm("Delete this note?")) return;
+    safeDelete(id);
+  }
 
   return (
-    <div className="task-board">
-      <div className="task-input-container">
-        <input
-          type="text"
-          placeholder="Enter your goal..."
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          className="goal-input"
-        />
-        <input
-          type="time"
-          value={time}
-          onChange={(e) => setTime(e.target.value)}
-          className="time-picker"
-        />
-        <button className="add-btn" onClick={addTask}>
-          ➕ Add Goal
-        </button>
-      </div>
-
-      <div className="notes-area">
-        {tasks.map((task) => (
-          <Draggable key={task.id}>
-            <div>
-              <StickyNote
-                task={task}
-                onComplete={handleComplete}
-                onDelete={handleDelete}
-                onReschedule={handleReschedule}
-              />
-            </div>
-          </Draggable>
-        ))}
-      </div>
+    <div className="task-board" id="notes-grid" style={{ position: "relative" }}>
+      {tasks.map((t, i) => {
+        const anims = ["float1","float2","float3"];
+        const anim = anims[i % anims.length];
+        const style = { animation: `${anim} ${5 + (i % 3)}s ease-in-out infinite`, zIndex: t.z || 0 };
+        return (
+          <StickyNote
+            key={t.id}
+            task={t}
+            style={style}
+            onComplete={handleComplete}
+            onReschedule={handleReschedule}
+            onDelete={handleDelete}
+          />
+        );
+      })}
     </div>
   );
 }
