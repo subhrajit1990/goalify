@@ -1,39 +1,50 @@
 .sticky-note {
-  width: 160px;
-  min-height: 140px;
-  padding: 12px;
-  border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-  font-family: "Comic Sans MS", cursive, sans-serif;
-  animation: wave 3s ease-in-out infinite;
-  cursor: grab;
+  position: relative;
+  padding: 15px;
+  width: 180px;
+  min-height: 120px;
+  background: #fffb96;
+  border: 2px solid #f0e68c;
+  border-radius: 8px;
+  box-shadow: 3px 6px 12px rgba(0,0,0,0.2);
+  transform: rotate(-2deg);
+  animation: from-pocket 0.8s ease forwards;
 }
 
 .sticky-note h4 {
-  margin: 0;
-  font-size: 1rem;
+  margin: 0 0 10px;
+  font-size: 16px;
 }
 
-.sticky-note .time {
-  font-size: 0.8rem;
-  color: #333;
+.note-time {
+  font-size: 13px;
+  margin-bottom: 10px;
+  color: #555;
 }
 
 .note-actions {
-  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }
 
 .note-actions button {
+  background: none;
   border: none;
-  background: transparent;
-  font-size: 1.2rem;
+  font-size: 16px;
   cursor: pointer;
 }
 
-@keyframes wave {
-  0% { transform: rotate(1deg); }
-  50% { transform: rotate(-1deg); }
-  100% { transform: rotate(1deg); }
+.note-actions button:hover {
+  transform: scale(1.2);
+}
+
+@keyframes from-pocket {
+  0% {
+    transform: translateY(50px) scale(0.5);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(-2deg);
+    opacity: 1;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "../styles/TaskInput.css";
-import nobitaImg from "../assets/nobita.png";
-import doraemonImg from "../assets/doraemon.png";
+import "./TaskInput.css";
+import NobitaImg from "../assets/nobita.png";   // make sure this image exists in assets
+import DoraemonImg from "../assets/doraemon.png"; // make sure this image exists in assets
 
 export default function TaskInput({ onAdd }) {
   const [goal, setGoal] = useState("");
@@ -9,35 +9,41 @@ export default function TaskInput({ onAdd }) {
 
   const handleAdd = () => {
     if (!goal.trim()) return;
-    onAdd(goal, time);
+    onAdd({ text: goal, time, id: Date.now() });
     setGoal("");
     setTime("");
   };
 
   return (
-    <div className="task-input-container">
-      {/* Nobita crying with speech bubble input */}
-      <div className="nobita-section">
-        <img src={nobitaImg} alt="Nobita" className="nobita-img" />
-        <div className="speech-bubble">
+    <div className="task-input-wrapper">
+      {/* Nobita side */}
+      <div className="nobita-side">
+        <img src={NobitaImg} alt="Nobita" className="nobita-img" />
+        <div className="speech-cloud">
           <input
             type="text"
+            className="goal-input"
             placeholder="Enter your goal..."
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           />
           <input
             type="time"
+            className="time-input"
             value={time}
             onChange={(e) => setTime(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Doraemon button */}
-      <div className="doraemon-section" onClick={handleAdd}>
-        <img src={doraemonImg} alt="Doraemon" className="doraemon-img" />
-        <span className="add-text">Add Goal</span>
+      {/* Doraemon side */}
+      <div className="doraemon-side" onClick={handleAdd}>
+        <img
+          src={DoraemonImg}
+          alt="Doraemon"
+          className="doraemon-img clickable"
+        />
+        <p className="doraemon-text">Add Goal</p>
       </div>
     </div>
   );
