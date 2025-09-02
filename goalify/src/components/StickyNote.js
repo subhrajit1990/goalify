@@ -1,56 +1,25 @@
-import React, { useRef } from "react";
+import React from "react";
 import Draggable from "react-draggable";
-import "../styles/StickyNote.css";
+import "./StickyNote.css";
 
-/**
- * Props:
- * - task: { id, title, time, status, ... }
- * - onComplete(id)
- * - onReschedule(id)
- * - onDelete(id)
- * - style (optional inline styles like animation, zIndex)
- */
-export default function StickyNote({
-  task,
-  onComplete = () => {},
-  onReschedule = () => {},
-  onDelete = () => {},
-  style = {}
-}) {
-  const nodeRef = useRef(null);
+const colors = ["#FFD93D", "#FF6B6B", "#6BCB77", "#4D96FF"];
+
+const StickyNote = ({ task, onUpdate, onDelete }) => {
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
 
   return (
-    // cancel ensures clicking buttons doesn't start dragging
-    <Draggable nodeRef={nodeRef} bounds="parent" cancel=".note-actions button">
-      <div
-        ref={nodeRef}
-        className={`sticky-note ${task?.status || ""}`}
-        style={{ background: task?.color || "#FFD", ...style }}
-      >
-        <h3 style={{ margin: 0 }}>{task?.title ?? task?.text ?? "Untitled"}</h3>
-        <p style={{ margin: "8px 0 0", fontSize: 13, color: "rgba(0,0,0,0.6)" }}>
-          {task?.dueAt
-            ? new Date(task.dueAt).toLocaleString()
-            : task?.time
-            ? task.time
-            : "No date"}
-        </p>
-
-        <div className="note-actions" style={{ marginTop: 10 }}>
-          {/* handlers are safe (default no-op) so clicks won't crash */}
-          {task?.status !== "done" && (
-            <button onClick={() => onComplete(task.id)} title="Complete">
-              ✅
-            </button>
-          )}
-          <button onClick={() => onReschedule(task.id)} title="Reschedule">
-            🔄
-          </button>
-          <button onClick={() => onDelete(task.id)} title="Delete">
-            ❌
-          </button>
+    <Draggable>
+      <div className="sticky-note" style={{ backgroundColor: randomColor }}>
+        <h4>{task.text}</h4>
+        <p className="time">{task.time}</p>
+        <div className="note-actions">
+          <button onClick={() => onUpdate(task.id, "completed")}>✅</button>
+          <button onClick={() => onUpdate(task.id, "rescheduled")}>📅</button>
+          <button onClick={() => onDelete(task.id)}>🗑️</button>
         </div>
       </div>
     </Draggable>
   );
-}
+};
+
+export default StickyNote;
