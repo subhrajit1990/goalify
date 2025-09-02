@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import StickyNote from "./StickyNote";
-import "./TaskBoard.css";
+import "../styles/TaskBoard.css";
 
 const TaskBoard = () => {
   const [goal, setGoal] = useState("");

@@ -1,6 +1,6 @@
 import React from "react";
 import Draggable from "react-draggable";
-import "./StickyNote.css";
+import "../styles/StickyNote.css";
 
 const colors = ["#FFD93D", "#FF6B6B", "#6BCB77", "#4D96FF"];
 
