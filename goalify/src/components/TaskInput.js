@@ -1,62 +1,43 @@
 import React, { useState } from "react";
 import "../styles/TaskInput.css";
-import NobitaImg from "../assets/nobita.png";
-import DoraemonImg from "../assets/doraemon.png";
+import nobitaImg from "../assets/nobita.png";
+import doraemonImg from "../assets/doraemon.png";
 
-/**
- * Props:
- *  - onAdd(goalText, time)
- *
- * This component renders Nobita (left) with a cloud-shaped input,
- * and Doraemon (right) — clicking Doraemon triggers onAdd.
- */
 export default function TaskInput({ onAdd }) {
   const [goal, setGoal] = useState("");
   const [time, setTime] = useState("");
 
-  function handleAdd() {
+  const handleAdd = () => {
     if (!goal.trim()) return;
-    onAdd(goal.trim(), time || "");
+    onAdd(goal, time);
     setGoal("");
     setTime("");
-  }
-
-  // allow Enter to add
-  function onKeyDown(e) {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleAdd();
-    }
-  }
+  };
 
   return (
-    <div className="task-input-root">
-      <div className="nobita-block">
-        <img src={NobitaImg} alt="Nobita" className="character nobita" />
-        <div className="cloud-bubble">
-          <textarea
-            className="cloud-textarea"
-            placeholder="Enter your goal here..."
+    <div className="task-input-container">
+      {/* Nobita crying with speech bubble input */}
+      <div className="nobita-section">
+        <img src={nobitaImg} alt="Nobita" className="nobita-img" />
+        <div className="speech-bubble">
+          <input
+            type="text"
+            placeholder="Enter your goal..."
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
-            onKeyDown={onKeyDown}
-            rows={2}
           />
-          <div className="cloud-controls">
-            <input
-              className="time-input"
-              type="time"
-              value={time}
-              onChange={(e) => setTime(e.target.value)}
-            />
-            <div className="hint">Press Enter or click Doraemon to add</div>
-          </div>
+          <input
+            type="time"
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
+          />
         </div>
       </div>
 
-      <div className="doraemon-block" onClick={handleAdd} role="button" tabIndex={0}>
-        <img src={DoraemonImg} alt="Doraemon" className="character doraemon" />
-        <div className="doraemon-caption">Click Doraemon to add</div>
+      {/* Doraemon button */}
+      <div className="doraemon-section" onClick={handleAdd}>
+        <img src={doraemonImg} alt="Doraemon" className="doraemon-img" />
+        <span className="add-text">Add Goal</span>
       </div>
     </div>
   );
