@@ -1,23 +1,7 @@
-.taskboard-container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 6px auto 60px;
-  padding: 0 12px;
-  box-sizing: border-box;
-}
-
-.notes-area {
-  position: relative;
-  min-height: 480px;
-  margin-top: 18px;
-  border-radius: 14px;
-  padding: 18px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(245,247,255,0.9));
-  box-shadow: 0 14px 40px rgba(20,20,50,0.06);
-  display: block; /* StickyNote handles absolute positioning */
-}
-
-/* keep layout consistent on small screens */
-@media (max-width: 880px) {
-  .notes-area { min-height: 360px; padding: 12px; }
+.task-board {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px;
+  min-height: 300px;
 }
