@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import "../styles/TaskInput.css";
-import nobitaImg from "../assets/nobita.png";
-import doraemonImg from "../assets/doraemon.png";
+import "./TaskInput.css";
+import NobitaImg from "../assets/nobita.png";
+import DoraemonImg from "../assets/doraemon.png";
 
-export default function TaskInput({ onAdd }) {
+const TaskInput = ({ onAddTask }) => {
   const [goal, setGoal] = useState("");
   const [time, setTime] = useState("");
 
   const handleAdd = () => {
-    if (goal && time) {
-      onAdd(goal, time);
+    if (goal.trim() && time) {
+      onAddTask(goal, time);
       setGoal("");
       setTime("");
     }
@@ -17,30 +17,35 @@ export default function TaskInput({ onAdd }) {
 
   return (
     <div className="task-input-container">
-      {/* Nobita crying with cloud bubble */}
-      <div className="nobita-section">
-        <img src={nobitaImg} alt="Nobita" className="character nobita" />
+      {/* Nobita with speech bubble */}
+      <div className="nobita-container">
+        <img src={NobitaImg} alt="Nobita" className="character nobita" />
         <div className="speech-bubble">
-          <input
-            type="text"
-            placeholder="Enter your goal here..."
+          <textarea
+            placeholder="Enter your goal..."
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
           />
           <input
             type="time"
-            className="time-picker"
             value={time}
             onChange={(e) => setTime(e.target.value)}
           />
         </div>
       </div>
 
-      {/* Doraemon to trigger add */}
-      <div className="doraemon-section" onClick={handleAdd}>
-        <img src={doraemonImg} alt="Doraemon" className="character doraemon" />
-        <p className="click-hint">Click Doraemon to add</p>
+      {/* Doraemon button */}
+      <div className="doraemon-container">
+        <img
+          src={DoraemonImg}
+          alt="Doraemon"
+          className="character doraemon"
+          onClick={handleAdd}
+        />
+        <p className="hint">Click Doraemon to add!</p>
       </div>
     </div>
   );
-}
+};
+
+export default TaskInput;
