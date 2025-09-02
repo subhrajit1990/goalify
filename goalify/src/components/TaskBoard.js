@@ -1,6 +1,6 @@
 import React from "react";
 import StickyNote from "./StickyNote";
-import "./TaskBoard.css";
+import "../styles/TaskBoard.css";
 
 export default function TaskBoard({ tasks, onDelete, onComplete, onReschedule }) {
   return (

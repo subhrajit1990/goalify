@@ -1,5 +1,5 @@
 import React from "react";
-import "./StickyNote.css";
+import "../styles/StickyNote.css";
 
 export default function StickyNote({ task, onDelete, onComplete, onReschedule }) {
   return (

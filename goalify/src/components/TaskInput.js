@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./TaskInput.css";
+import "../styles/TaskInput.css";
 import NobitaImg from "../assets/nobita.png";   // make sure this image exists in assets
 import DoraemonImg from "../assets/doraemon.png"; // make sure this image exists in assets
 
