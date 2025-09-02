@@ -1,71 +1,111 @@
-.task-input-container {
+/* Container */
+.task-input-root {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  gap: 40px;
   width: 100%;
-  padding: 20px;
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 12px;
+  box-sizing: border-box;
 }
 
+/* Character images */
 .character {
-  height: 220px;
-  cursor: pointer;
+  display: block;
   user-select: none;
+  -webkit-user-drag: none;
 }
+.nobita { width: 150px; }
+.doraemon { width: 150px; transition: transform .18s ease; }
 
-.nobita-container {
+/* Nobita + bubble */
+.nobita-block {
   position: relative;
   display: flex;
   align-items: flex-start;
+  gap: 12px;
 }
-
-.speech-bubble {
-  position: absolute;
-  left: 160px;
-  top: 10px;
-  background: #fff;
+.cloud-bubble {
+  margin-left: -36px;
+  background: linear-gradient(180deg,#fff,#fbfdff);
   border-radius: 40px;
-  padding: 15px;
-  width: 220px;
-  min-height: 100px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  padding: 12px 14px;
+  width: 360px;
+  box-shadow: 0 10px 30px rgba(30,30,60,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
 }
 
-.speech-bubble::before {
+/* Cloud tail */
+.cloud-bubble::before,
+.cloud-bubble::after {
   content: "";
   position: absolute;
-  left: -30px;
-  top: 40px;
-  border-width: 15px;
-  border-style: solid;
-  border-color: transparent #fff transparent transparent;
+  bottom: -14px;
+  left: 48px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 8px 18px rgba(30,30,60,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.cloud-bubble::after {
+  left: 68px;
+  width: 12px;
+  height: 12px;
 }
 
-.speech-bubble textarea {
+/* input area */
+.cloud-textarea {
   width: 100%;
-  border: none;
-  outline: none;
   resize: none;
-  font-size: 14px;
-  font-family: inherit;
-  margin-bottom: 8px;
-}
-
-.speech-bubble input[type="time"] {
-  width: 100%;
   border: none;
   outline: none;
-  font-size: 14px;
-  padding: 4px;
+  font-size: 15px;
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  color: #111;
+  background: transparent;
+  padding: 4px 0;
 }
 
-.doraemon-container {
-  text-align: center;
-}
-
-.doraemon-container .hint {
-  font-size: 14px;
-  color: #555;
+/* time + hint row */
+.cloud-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
   margin-top: 8px;
-  font-style: italic;
+  justify-content: space-between;
+}
+.time-input {
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid #e6e8ee;
+  background: #fff;
+  font-size: 13px;
+}
+.hint { font-size: 12px; color: #6b6f76; }
+
+/* Doraemon block */
+.doraemon-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+.doraemon-block:active .doraemon {
+  transform: translateY(-4px) scale(0.99);
+}
+.doraemon-caption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #4f5560;
+}
+
+/* Responsive */
+@media (max-width: 880px) {
+  .task-input-root { flex-direction: column; align-items: center; gap: 18px; }
+  .cloud-bubble { width: 92%; margin-left: 0; }
+  .nobita { width: 120px; }
+  .doraemon { width: 120px; }
 }

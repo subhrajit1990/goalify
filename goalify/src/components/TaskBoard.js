@@ -1,73 +1,73 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import TaskInput from "./TaskInput";
 import StickyNote from "./StickyNote";
 import "../styles/TaskBoard.css";
 
-const TaskBoard = () => {
-  const [goal, setGoal] = useState("");
-  const [tasks, setTasks] = useState([]);
+const STORAGE = "goalify_tasks_v1";
+const NOTE_COLORS = ["#FFD93D", "#FF6B6B", "#6BCB77", "#4D96FF", "#F7A8B8"];
 
-  const addTask = () => {
-    if (!goal.trim()) return;
+export default function TaskBoard() {
+  const [tasks, setTasks] = useState(() => {
+    try {
+      const raw = localStorage.getItem(STORAGE);
+      return raw ? JSON.parse(raw) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try { localStorage.setItem(STORAGE, JSON.stringify(tasks)); } catch {}
+  }, [tasks]);
+
+  function handleAddTask(text, time) {
+    const color = NOTE_COLORS[Math.floor(Math.random() * NOTE_COLORS.length)];
     const newTask = {
       id: Date.now(),
-      text: goal,
-      time: new Date().toLocaleTimeString(),
-      status: "pending",
+      text,
+      time: time || new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+      color,
+      status: "active",
+      x: 40, // initial spawn position (near Doraemon pocket in your layout)
+      y: 260,
+      fromPocket: true
     };
-    setTasks([...tasks, newTask]);
-    setGoal("");
-  };
+    setTasks((p) => [...p, newTask]);
+  }
 
-  const updateTask = (id, status) => {
-    setTasks(tasks.map(task => (task.id === id ? { ...task, status } : task)));
-  };
-
-  const deleteTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
-  };
+  function handleMove(id, x, y) {
+    setTasks((p) => p.map((t) => (t.id === id ? { ...t, x, y, fromPocket: false } : t)));
+  }
+  function handleComplete(id) {
+    setTasks((p) => p.map((t) => (t.id === id ? { ...t, status: "done" } : t)));
+  }
+  function handleReschedule(id) {
+    const newTime = prompt("Enter new time (HH:MM)", "");
+    if (!newTime) return;
+    setTasks((p) => p.map((t) => (t.id === id ? { ...t, time: newTime } : t)));
+  }
+  function handleDelete(id) {
+    if (!window.confirm("Delete this note?")) return;
+    setTasks((p) => p.filter((t) => t.id !== id));
+  }
 
   return (
-    <div className="taskboard">
-      <div className="character-area">
-        {/* Nobita crying with speech bubble */}
-        <div className="nobita">
-          <img
-            src="https://i.ibb.co/JrM2Sdb/nobita-crying.png"
-            alt="Nobita crying"
-            className="character-img"
-          />
-          <input
-            type="text"
-            className="cloud-input"
-            placeholder="Enter your goal here..."
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
-          />
-        </div>
+    <div className="taskboard-container">
+      <TaskInput onAdd={handleAddTask} />
 
-        {/* Doraemon to release sticky notes */}
-        <div className="doraemon" onClick={addTask}>
-          <img
-            src="https://i.ibb.co/6sVZBbf/doraemon.png"
-            alt="Doraemon"
-            className="character-img"
-          />
-          <p className="doraemon-text">Click me to add goal!</p>
-        </div>
-      </div>
-
-      <div className="notes-area">
-        {tasks.map((task) => (
+      <div id="notes-area" className="notes-area">
+        {tasks.map((t, i) => (
           <StickyNote
-            key={task.id}
-            task={task}
-            onUpdate={updateTask}
-            onDelete={deleteTask}
+            key={t.id}
+            task={t}
+            zIndex={100 + i}
+            onMove={handleMove}
+            onComplete={handleComplete}
+            onReschedule={handleReschedule}
+            onDelete={handleDelete}
           />
         ))}
       </div>
     </div>
   );
-};
-
-export default TaskBoard;
+}
