@@ -1,9 +1,13 @@
-.task-board {
+.task-board, .notes-area {
   position: relative;
-  width: 100%;
-  min-height: 400px;
-  padding: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  min-height: 360px;
+  border-radius: 12px;
+  padding: 14px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(245,247,255,0.9));
+  box-shadow: 0 12px 30px rgba(20,20,50,0.06);
+}
+
+/* on small screens, reduce min-height */
+@media (max-width: 480px) {
+  .task-board, .notes-area { min-height: 300px; padding: 10px; }
 }
