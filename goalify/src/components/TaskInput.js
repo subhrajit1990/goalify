@@ -16,7 +16,7 @@ export default function TaskInput({ onAdd = () => {} }) {
 
   return (
     <div className="task-input-wrapper">
-      {/* Nobita side with speech cloud */}
+      {/* Nobita with bubble */}
       <div className="nobita-side">
         <img src={NobitaImg} alt="Nobita" className="nobita-img" />
         <div className="speech-cloud">
@@ -36,7 +36,7 @@ export default function TaskInput({ onAdd = () => {} }) {
         </div>
       </div>
 
-      {/* Doraemon side */}
+      {/* Doraemon as Add button */}
       <div className="doraemon-side" onClick={handleAdd}>
         <img
           src={DoraemonImg}

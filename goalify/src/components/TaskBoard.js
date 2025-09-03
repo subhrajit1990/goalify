@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import StickyNote from "./StickyNote";
-import "../styles/TaskBoard.css";
 import TaskInput from "./TaskInput";
+import "../styles/TaskBoard.css";
 
 export default function TaskBoard() {
   const [tasks, setTasks] = useState([]);
@@ -35,7 +35,7 @@ export default function TaskBoard() {
 
   return (
     <div className="task-board">
-      {/* Nobita + Doraemon input comes from TaskInput */}
+      {/* Nobita + Doraemon input lives here */}
       <TaskInput onAdd={handleAddTask} />
 
       {/* Sticky Notes Board */}
