@@ -1,17 +1,19 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export const ThemeContext = createContext();
 
-export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState("light");
+export default function ThemeProvider({ children }) {
+  const [theme, setTheme] = useLocalStorage("theme", "light"); // light by default
+  const [font, setFont] = useLocalStorage("font", "Arial");
 
-  useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
-  }, [theme]);
+  const value = { theme, setTheme, font, setFont };
 
   return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
+    <ThemeContext.Provider value={value}>
+      <div className={`app-theme ${theme}`} style={{ fontFamily: font }}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
-};
+}
