@@ -1,26 +1,49 @@
-import React, { useState } from "react";
-import TaskInput from "./components/TaskInput";
+import React, { useState, useEffect } from "react";
 import TaskBoard from "./components/TaskBoard";
 import Settings from "./components/Settings";
 import "./App.css";
 
 function App() {
-  const [tasks, setTasks] = useState([]);
-  const [theme, setTheme] = useState("light");
-  const [font, setFont] = useState("sans-serif");
+  // --- Load from localStorage (or fallback to defaults)
+  const [tasks, setTasks] = useState(() => {
+    const saved = localStorage.getItem("tasks");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  const [font, setFont] = useState(() => {
+    return localStorage.getItem("font") || "sans-serif";
+  });
+
   const [showSettings, setShowSettings] = useState(false);
 
-  // Add new task
+  // --- Save to localStorage whenever state changes
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  useEffect(() => {
+    localStorage.setItem("font", font);
+  }, [font]);
+
+  // --- Add new task
   const addTask = (task) => {
     setTasks([...tasks, task]);
   };
 
-  // Update task (complete, reschedule, etc.)
+  // --- Update task (complete, reschedule, etc.)
   const updateTask = (id, updatedFields) => {
     setTasks(tasks.map((t) => (t.id === id ? { ...t, ...updatedFields } : t)));
   };
 
-  // Delete task
+  // --- Delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((t) => t.id !== id));
   };
@@ -34,13 +57,15 @@ function App() {
         </button>
       </header>
 
-      {/* Input for adding new goals 
-      <TaskInput /> */}
+      {/* Task Board with sticky notes */}
+      <TaskBoard
+        tasks={tasks}
+        addTask={addTask}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+      />
 
-      {/* Board showing sticky notes */}
-      <TaskBoard tasks={tasks} updateTask={updateTask} deleteTask={deleteTask} />
-
-      {/* Settings modal */}
+      {/* Settings Modal */}
       <Settings
         isOpen={showSettings}
         onClose={() => setShowSettings(false)}
