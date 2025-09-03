@@ -10,7 +10,7 @@ export default function TaskBoard() {
   const handleAddTask = (task) => {
     setTasks((prev) => [
       ...prev,
-      { ...task, fromPocket: true, x: 50, y: 50 }
+      { ...task, fromPocket: true, x: 50, y: 50, completed: false }
     ]);
   };
 
@@ -20,16 +20,14 @@ export default function TaskBoard() {
 
   const handleComplete = (id) => {
     setTasks((prev) =>
-      prev.map((t) =>
-        t.id === id ? { ...t, completed: true } : t
-      )
+      prev.map((t) => (t.id === id ? { ...t, completed: true } : t))
     );
   };
 
   const handleReschedule = (id) => {
     setTasks((prev) =>
       prev.map((t) =>
-        t.id === id ? { ...t, time: "" } : t
+        t.id === id ? { ...t, time: prompt("Enter new time (HH:MM)") } : t
       )
     );
   };

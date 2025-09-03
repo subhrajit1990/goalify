@@ -2,9 +2,19 @@ import React, { useEffect, useMemo, useRef, useState } from "react";
 import Draggable from "react-draggable";
 import "../styles/StickyNote.css";
 
-export default function StickyNote({ task, onMove = () => {}, onComplete = () => {}, onReschedule = () => {}, onDelete = () => {}, zIndex = 1 }) {
+export default function StickyNote({
+  task,
+  onMove = () => {},
+  onComplete = () => {},
+  onReschedule = () => {},
+  onDelete = () => {},
+  zIndex = 1
+}) {
   const nodeRef = useRef(null);
-  const tiltClass = useMemo(() => (Math.random() > 0.5 ? "tilt-left" : "tilt-right"), []);
+  const tiltClass = useMemo(
+    () => (Math.random() > 0.5 ? "tilt-left" : "tilt-right"),
+    []
+  );
   const [fromPocket, setFromPocket] = useState(Boolean(task.fromPocket));
 
   useEffect(() => {
@@ -28,8 +38,10 @@ export default function StickyNote({ task, onMove = () => {}, onComplete = () =>
     >
       <div
         ref={nodeRef}
-        className={`sticky-note ${tiltClass} ${task.status === "done" ? "done" : ""} ${fromPocket ? "from-pocket" : ""}`}
-        style={{ background: task.color || "#FFD93D", zIndex, touchAction: 'none' }}
+        className={`sticky-note ${tiltClass} ${
+          task.completed ? "done" : ""
+        } ${fromPocket ? "from-pocket" : ""}`}
+        style={{ background: task.color || "#FFD93D", zIndex, touchAction: "none" }}
       >
         <div className="note-pin">📌</div>
 
@@ -39,9 +51,17 @@ export default function StickyNote({ task, onMove = () => {}, onComplete = () =>
         </div>
 
         <div className="note-actions">
-          {task.status !== "done" && <button className="action-btn" onClick={() => onComplete(task.id)}>✅</button>}
-          <button className="action-btn" onClick={() => onReschedule(task.id)}>🔄</button>
-          <button className="action-btn" onClick={() => onDelete(task.id)}>🗑️</button>
+          {!task.completed && (
+            <button className="action-btn" onClick={() => onComplete(task.id)}>
+              ✅ Done
+            </button>
+          )}
+          <button className="action-btn" onClick={() => onReschedule(task.id)}>
+            🔄 Reschedule
+          </button>
+          <button className="action-btn" onClick={() => onDelete(task.id)}>
+            🗑️ Delete
+          </button>
         </div>
       </div>
     </Draggable>
