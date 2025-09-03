@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import TaskInput from "./TaskInput";
 import StickyNote from "./StickyNote";
 import "../styles/TaskBoard.css";
+import TaskInput from "./TaskInput";
 
 export default function TaskBoard() {
   const [tasks, setTasks] = useState([]);
@@ -13,15 +13,40 @@ export default function TaskBoard() {
     ]);
   };
 
+  const handleDelete = (id) => {
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const handleComplete = (id) => {
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, completed: true } : t
+      )
+    );
+  };
+
+  const handleReschedule = (id) => {
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, time: "" } : t
+      )
+    );
+  };
+
   return (
     <div className="task-board">
+      {/* Nobita + Doraemon input comes from TaskInput */}
       <TaskInput onAdd={handleAddTask} />
+
+      {/* Sticky Notes Board */}
       <div id="notes-area" className="notes-area">
         {tasks.map((t) => (
           <StickyNote
             key={t.id}
             task={t}
-            onDelete={(id) => setTasks((p) => p.filter((tt) => tt.id !== id))}
+            onDelete={handleDelete}
+            onComplete={handleComplete}
+            onReschedule={handleReschedule}
           />
         ))}
       </div>
