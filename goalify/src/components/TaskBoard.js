@@ -9,68 +9,77 @@ export default function TaskBoard() {
     return saved ? JSON.parse(saved) : [];
   });
 
-  // Save tasks to localStorage whenever they change
+  // persist
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  // Add new task → staggered grid positioning
+  // strict grid position so notes don’t overlap
+  const getGridPosition = (index) => {
+    const NOTE_W = 200;   // should match .sticky-note width (desktop)
+    const GAP = 20;
+    const COLS = 3;       // columns on wide screens (mobile will still be fine)
+    const x = 20 + (index % COLS) * (NOTE_W + GAP);
+    const y = 20 + Math.floor(index / COLS) * (NOTE_W + GAP);
+    return { x, y };
+  };
+
+  // Add
   const handleAddTask = (task) => {
     const index = tasks.length;
-    const x = 40 + (index % 4) * 160; // column-based positioning
-    const y = 40 + Math.floor(index / 4) * 160; // row-based positioning
-
+    const { x, y } = getGridPosition(index);
     setTasks((prev) => [
       ...prev,
-      { ...task, fromPocket: true, x, y, status: "pending" },
+      {
+        ...task,
+        id: task.id ?? Date.now(),
+        completed: false,
+        fromPocket: true,
+        x,
+        y,
+      },
     ]);
   };
 
-  // Delete task
+  // Move (drag stop)
+  const handleMove = (id, x, y) => {
+    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, x, y } : t)));
+  };
+
+  // Done
+  const handleComplete = (id) => {
+    setTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, completed: true } : t))
+    );
+  };
+
+  // Reschedule (inline picker supplies newTime)
+  const handleReschedule = (id, newTime) => {
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, time: newTime ?? "", completed: false } : t
+      )
+    );
+  };
+
+  // Delete
   const handleDelete = (id) => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Complete task
-  const handleComplete = (id) => {
-    setTasks((prev) =>
-      prev.map((t) =>
-        t.id === id ? { ...t, status: "done" } : t
-      )
-    );
-  };
-
-  // Reschedule task → clear time
-  const handleReschedule = (id) => {
-    setTasks((prev) =>
-      prev.map((t) =>
-        t.id === id ? { ...t, time: "⏳ Reschedule pending" } : t
-      )
-    );
-  };
-
-  // Update sticky note position
-  const handleMove = (id, x, y) => {
-    setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, x, y } : t))
-    );
-  };
-
   return (
     <div className="task-board">
-      {/* Nobita + Doraemon Input */}
       <TaskInput onAdd={handleAddTask} />
 
-      {/* Sticky Notes Area */}
       <div id="notes-area" className="notes-area">
         {tasks.map((t, i) => (
           <StickyNote
             key={t.id}
             task={t}
             onMove={handleMove}
-            onDelete={handleDelete}
             onComplete={handleComplete}
             onReschedule={handleReschedule}
+            onDelete={handleDelete}
             zIndex={i + 1}
           />
         ))}

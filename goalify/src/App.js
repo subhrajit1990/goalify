@@ -52,9 +52,6 @@ function App() {
     <div className={`app theme-${theme}`} style={{ fontFamily: font }}>
       <header className="app-header">
         <h1>🎯 Goalify</h1>
-        <button className="settings-btn" onClick={() => setShowSettings(true)}>
-          ⚙️ Settings
-        </button>
       </header>
 
       {/* Task Board with sticky notes */}
@@ -64,6 +61,11 @@ function App() {
         updateTask={updateTask}
         deleteTask={deleteTask}
       />
+
+      {/* Floating Settings Button */}
+      <button className="settings-fab" onClick={() => setShowSettings(true)}>
+        ⚙️
+      </button>
 
       {/* Settings Modal */}
       <Settings

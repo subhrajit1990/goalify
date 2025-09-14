@@ -1,142 +1,95 @@
-/* Overlay background */
+/* Overlay */
 .settings-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2000;
-  padding: 10px;
 }
 
 /* Modal box */
 .settings-modal {
   background: #fff;
   padding: 20px;
-  border-radius: 16px;
-  width: 100%;
-  max-width: 420px;
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.3s ease-in-out;
-  font-family: "Poppins", sans-serif;
-  position: relative;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease;
 }
 
-/* Title */
 .settings-modal h2 {
   margin-top: 0;
-  font-size: 1.4rem;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
   text-align: center;
-  color: #333;
 }
 
-/* Options group */
-.settings-options {
-  margin: 15px 0;
+.settings-section {
+  margin-bottom: 15px;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Labels */
-.settings-options label {
-  font-size: 0.95rem;
-  color: #444;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.settings-section label {
+  font-weight: bold;
 }
 
-/* Dropdowns */
-.settings-options select {
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
+.settings-section select {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
   font-size: 1rem;
-  outline: none;
-  transition: all 0.2s ease-in-out;
-}
-
-.settings-options select:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 6px rgba(0, 123, 255, 0.4);
 }
 
 /* Close button */
-.settings-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
-  color: #666;
-  transition: color 0.2s;
-}
-
-.settings-close:hover {
-  color: #000;
-}
-
-/* Buttons for Save/Cancel (optional) */
-.settings-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.settings-actions button {
-  padding: 8px 14px;
+.close-btn {
+  display: block;
+  margin: 0 auto;
+  padding: 8px 16px;
+  background: #ff4d4d;
+  color: white;
   border: none;
   border-radius: 8px;
-  font-size: 0.9rem;
   cursor: pointer;
-  transition: background 0.2s;
+  font-size: 1rem;
 }
 
-.settings-actions button.save {
+.close-btn:hover {
+  background: #e60000;
+}
+
+/* Floating action button */
+.settings-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background: #007bff;
-  color: #fff;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  z-index: 1500;
 }
 
-.settings-actions button.save:hover {
+.settings-fab:hover {
   background: #0056b3;
 }
 
-.settings-actions button.cancel {
-  background: #e0e0e0;
-}
-
-.settings-actions button.cancel:hover {
-  background: #cfcfcf;
-}
-
-/* Animation */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* 📱 Mobile adjustments */
-@media (max-width: 600px) {
-  .settings-modal {
-    max-width: 95%;
-    padding: 15px;
-  }
-
-  .settings-modal h2 {
-    font-size: 1.2rem;
-  }
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
