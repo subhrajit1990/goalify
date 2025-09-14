@@ -1,70 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import StickyNote from "./StickyNote";
 import TaskInput from "./TaskInput";
+import useLocalStorage from "../hooks/useLocalStorage";
 import "../styles/TaskBoard.css";
 
 export default function TaskBoard() {
-  const [tasks, setTasks] = useState(() => {
-    const saved = localStorage.getItem("tasks");
-    return saved ? JSON.parse(saved) : [];
-  });
+  const [tasks, setTasks] = useLocalStorage("tasks", []);
 
-  // persist
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  // strict grid position so notes don’t overlap
-  const getGridPosition = (index) => {
-    const NOTE_W = 200;   // should match .sticky-note width (desktop)
-    const GAP = 20;
-    const COLS = 3;       // columns on wide screens (mobile will still be fine)
-    const x = 20 + (index % COLS) * (NOTE_W + GAP);
-    const y = 20 + Math.floor(index / COLS) * (NOTE_W + GAP);
-    return { x, y };
-  };
-
-  // Add
   const handleAddTask = (task) => {
-    const index = tasks.length;
-    const { x, y } = getGridPosition(index);
     setTasks((prev) => [
       ...prev,
-      {
-        ...task,
-        id: task.id ?? Date.now(),
-        completed: false,
-        fromPocket: true,
-        x,
-        y,
-      },
+      { ...task, fromPocket: true, x: 50, y: 50 }
     ]);
   };
 
-  // Move (drag stop)
-  const handleMove = (id, x, y) => {
-    setTasks((prev) => prev.map((t) => (t.id === id ? { ...t, x, y } : t)));
+  const handleDelete = (id) => {
+    setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
-  // Done
   const handleComplete = (id) => {
     setTasks((prev) =>
-      prev.map((t) => (t.id === id ? { ...t, completed: true } : t))
-    );
-  };
-
-  // Reschedule (inline picker supplies newTime)
-  const handleReschedule = (id, newTime) => {
-    setTasks((prev) =>
       prev.map((t) =>
-        t.id === id ? { ...t, time: newTime ?? "", completed: false } : t
+        t.id === id ? { ...t, status: "done" } : t
       )
     );
   };
 
-  // Delete
-  const handleDelete = (id) => {
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+  const handleReschedule = (id) => {
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, time: "⏳ Reschedule" } : t
+      )
+    );
+  };
+
+  const handleMove = (id, x, y) => {
+    setTasks((prev) =>
+      prev.map((t) =>
+        t.id === id ? { ...t, x, y } : t
+      )
+    );
   };
 
   return (
@@ -72,15 +47,15 @@ export default function TaskBoard() {
       <TaskInput onAdd={handleAddTask} />
 
       <div id="notes-area" className="notes-area">
-        {tasks.map((t, i) => (
+        {tasks.map((t, index) => (
           <StickyNote
             key={t.id}
             task={t}
-            onMove={handleMove}
+            onDelete={handleDelete}
             onComplete={handleComplete}
             onReschedule={handleReschedule}
-            onDelete={handleDelete}
-            zIndex={i + 1}
+            onMove={handleMove}
+            zIndex={index + 1}
           />
         ))}
       </div>

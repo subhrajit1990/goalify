@@ -11,19 +11,17 @@ export default function StickyNote({
   zIndex = 1,
 }) {
   const nodeRef = useRef(null);
-
   const tiltClass = useMemo(
     () => (Math.random() > 0.5 ? "tilt-left" : "tilt-right"),
     []
   );
 
   const [fromPocket, setFromPocket] = useState(Boolean(task.fromPocket));
-  const [showRescheduler, setShowRescheduler] = useState(false);
-  const [newTime, setNewTime] = useState(task.time || "");
 
   useEffect(() => {
     if (task.fromPocket) {
-      const t = setTimeout(() => setFromPocket(false), 900);
+      // remove animation class after it plays once
+      const t = setTimeout(() => setFromPocket(false), 1000);
       return () => clearTimeout(t);
     }
   }, [task.fromPocket]);
@@ -37,13 +35,13 @@ export default function StickyNote({
       nodeRef={nodeRef}
       defaultPosition={{ x: task.x || 0, y: task.y || 0 }}
       bounds="#notes-area"
-      cancel=".note-actions, .note-actions *, .reschedule-box, .reschedule-box *"
+      cancel=".note-actions, .note-actions *"
       onStop={handleStop}
     >
       <div
         ref={nodeRef}
         className={`sticky-note ${tiltClass} ${
-          task.completed ? "done" : ""
+          task.status === "done" ? "done" : ""
         } ${fromPocket ? "from-pocket" : ""}`}
         style={{
           background: task.color || "#FFD93D",
@@ -55,55 +53,22 @@ export default function StickyNote({
 
         <div className="note-body">
           <div className="note-title">{task.text}</div>
-          {task.time ? <div className="note-time">⏰ {task.time}</div> : null}
+          <div className="note-time">⏰ {task.time}</div>
         </div>
 
         <div className="note-actions">
-          {!task.completed && (
-            <button
-              className="action-btn"
-              onClick={() => onComplete(task.id)}
-              title="Mark as done"
-            >
+          {task.status !== "done" && (
+            <button className="action-btn" onClick={() => onComplete(task.id)}>
               ✅
             </button>
           )}
-
-          <button
-            className="action-btn"
-            onClick={() => setShowRescheduler((s) => !s)}
-            title="Reschedule"
-          >
+          <button className="action-btn" onClick={() => onReschedule(task.id)}>
             🔄
           </button>
-
-          <button
-            className="action-btn"
-            onClick={() => onDelete(task.id)}
-            title="Delete"
-          >
+          <button className="action-btn" onClick={() => onDelete(task.id)}>
             🗑️
           </button>
         </div>
-
-        {showRescheduler && (
-          <div className="reschedule-box">
-            <input
-              type="time"
-              value={newTime}
-              onChange={(e) => setNewTime(e.target.value)}
-            />
-            <button
-              className="reschedule-save"
-              onClick={() => {
-                onReschedule(task.id, newTime);
-                setShowRescheduler(false);
-              }}
-            >
-              Save
-            </button>
-          </div>
-        )}
       </div>
     </Draggable>
   );

@@ -1,0 +1,86 @@
+.sticky-note {
+  width: 200px;
+  min-height: 120px;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  position: absolute;
+  transition: transform 0.2s ease-in-out;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  overflow: hidden;
+}
+
+.sticky-note.tilt-left {
+  transform: rotate(-2deg);
+}
+
+.sticky-note.tilt-right {
+  transform: rotate(2deg);
+}
+
+.sticky-note.done {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+/* Pocket animation */
+@keyframes fromPocket {
+  0% {
+    transform: translateY(200px) scale(0.2) rotate(-20deg);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-30px) scale(1.05) rotate(10deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(10px) scale(0.95) rotate(-5deg);
+  }
+  100% {
+    transform: translateY(0) scale(1) rotate(0);
+  }
+}
+
+.sticky-note.from-pocket {
+  animation: fromPocket 0.8s ease-out forwards;
+}
+
+.note-pin {
+  font-size: 18px;
+  position: absolute;
+  top: -10px;
+  left: 10px;
+}
+
+.note-body {
+  margin-top: 20px;
+}
+
+.note-title {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.note-time {
+  font-size: 14px;
+  color: #333;
+}
+
+.note-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.action-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.action-btn:hover {
+  transform: scale(1.2);
+}
