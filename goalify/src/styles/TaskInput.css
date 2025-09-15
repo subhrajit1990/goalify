@@ -1,26 +1,35 @@
+.taskinput-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+/* Nobita with bubble */
 .nobita-container {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 20px 0;
+  margin-bottom: 30px;
 }
 
 .nobita-image {
-  width: 220px;
+  width: 240px;
   height: auto;
 }
 
+/* Inputs inside the bubble */
 .bubble-inputs {
   position: absolute;
-  top: 5%;   /* adjust to fit inside bubble */
+  top: 5%;   /* adjust to align perfectly inside bubble */
   left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  width: 140px;
+  width: 150px;
 }
 
 .goal-input,
@@ -31,7 +40,8 @@
   border-radius: 8px;
   font-size: 12px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .add-btn {
@@ -39,8 +49,47 @@
   background: #ffcc00;
   border: none;
   border-radius: 50%;
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   font-size: 18px;
   cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.add-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Doraemon */
+.doraemon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.doraemon-image {
+  width: 180px;
+  height: auto;
+}
+
+.doraemon-hint {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .nobita-image {
+    width: 180px;
+  }
+  .bubble-inputs {
+    width: 120px;
+    top: 4%;
+  }
+  .doraemon-image {
+    width: 140px;
+  }
 }
