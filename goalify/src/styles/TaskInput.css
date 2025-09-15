@@ -5,63 +5,46 @@
   margin: 20px 0;
 }
 
-/* Nobita with bubble */
-.nobita-container {
+/* Nobita + bubble */
+.nobita-wrapper {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 30px;
-}
-
-.nobita-image {
-  width: 240px;
-  height: auto;
-}
-
-/* Inputs inside the bubble */
-.bubble-inputs {
-  position: absolute;
-  top: 5%;   /* adjust to align perfectly inside bubble */
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
-  width: 150px;
+}
+
+.nobita-image {
+  width: 200px;
+  margin-top: 20px;
+}
+
+/* Bubble */
+.bubble {
+  position: absolute;
+  top: -140px; /* position bubble above Nobita */
+  background: white;
+  border: 2px solid #333;
+  border-radius: 50% / 40%;
+  padding: 12px;
+  width: 220px;
+  text-align: center;
+  box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
 }
 
 .goal-input,
-.date-input {
-  width: 100%;
-  padding: 4px 6px;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.add-btn {
-  margin-top: 4px;
-  background: #ffcc00;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  font-size: 18px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.add-btn:hover {
-  transform: scale(1.1);
+.date-input,
+.time-input {
+  width: 90%;
+  margin: 5px 0;
+  padding: 6px 8px;
+  border: 1px solid #aaa;
+  border-radius: 6px;
+  font-size: 14px;
 }
 
 /* Doraemon */
 .doraemon-container {
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,26 +52,37 @@
 }
 
 .doraemon-image {
-  width: 180px;
-  height: auto;
+  width: 160px;
+  transition: transform 0.3s;
+}
+
+.doraemon-container:hover .doraemon-image {
+  transform: scale(1.05);
 }
 
 .doraemon-hint {
-  margin-top: 8px;
+  margin-top: 6px;
   font-size: 14px;
   color: #333;
-  font-weight: 500;
 }
 
 /* Mobile responsive */
 @media (max-width: 600px) {
+  .bubble {
+    width: 200px;
+    top: -120px;
+  }
+
+  .goal-input,
+  .date-input,
+  .time-input {
+    font-size: 12px;
+  }
+
   .nobita-image {
-    width: 180px;
+    width: 160px;
   }
-  .bubble-inputs {
-    width: 120px;
-    top: 4%;
-  }
+
   .doraemon-image {
     width: 140px;
   }
