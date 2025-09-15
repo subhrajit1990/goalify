@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./styles/TaskInput.css";
-import nobitaImg from "./nobita.png"; // use your nobita image with bubble
+import nobitaImg from "./assets/nobita.png"; // use your nobita image with bubble
 
 export default function TaskInput({ onAdd }) {
   const [goal, setGoal] = useState("");
