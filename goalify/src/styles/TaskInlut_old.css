@@ -1,0 +1,139 @@
+/* TaskInput (mobile-first) */
+
+.task-input-wrapper {
+  display: flex;
+  flex-direction: column; /* stack by default for mobile */
+  align-items: center;
+  gap: 18px;
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* keep images tidy */
+.character {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Nobita area */
+.nobita-side {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  max-width: 900px;
+  justify-content: center;
+}
+
+.nobita-img {
+  width: 120px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+/* cloud bubble */
+.speech-cloud {
+  position: relative;
+  background: #fff;
+  border-radius: 28px;
+  padding: 12px 14px;
+  width: calc(100% - 160px); /* allow image space */
+  min-width: 220px;
+  box-shadow: 0 8px 22px rgba(20, 30, 60, 0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* tail */
+.speech-cloud::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 36px;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 6px 12px rgba(20,30,60,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* inputs */
+.goal-input,
+.time-input {
+  display: block;
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  background: transparent;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* smaller gap for controls */
+.speech-cloud .time-input {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #fafafa;
+  border: 1px solid #eef0f4;
+}
+
+/* Doraemon area - large hit target */
+.doraemon-side {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  width: 160px; /* consistent area */
+  -webkit-tap-highlight-color: transparent;
+}
+
+.doraemon-hit{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  border-radius: 14px;
+  transition: box-shadow .12s ease, transform .12s ease;
+}
+
+.doraemon-hit:active {
+  transform: translateY(-2px);
+}
+
+.doraemon-img {
+  width: 120px;
+  height: auto;
+}
+
+.doraemon-text {
+  font-size: 13px;
+  color: #2f4f9f;
+  font-weight: 600;
+}
+
+/* Ensure touch target large enough */
+.doraemon-hit, .speech-cloud, .goal-input { touch-action: manipulation; }
+
+/* Desktop / wide screens */
+@media (min-width: 880px) {
+  .task-input-wrapper { flex-direction: row; justify-content: space-between; align-items: center; padding: 20px 12px; }
+  .nobita-side { justify-content: flex-start; width: auto; }
+  .speech-cloud { width: 380px; min-width: 320px; }
+  .doraemon-side { width: 160px; }
+}
+
+/* very small phones */
+@media (max-width: 360px) {
+  .nobita-img { width: 100px; }
+  .doraemon-img { width: 100px; }
+  .speech-cloud { width: calc(100% - 120px); padding: 10px; }
+  .goal-input { font-size: 15px; }
+}
