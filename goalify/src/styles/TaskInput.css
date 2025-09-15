@@ -1,67 +1,78 @@
 .taskinput-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* Nobita + bubble */
 .nobita-wrapper {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: inline-block;
 }
 
-.nobita-image {
-  width: 180px;
-  margin-top: 80px; /* pushes Nobita down so bubble looks above his head */
-}
-
-/* Bubble styling */
-.bubble {
+.thought-bubble {
   position: absolute;
-  top: -60px; /* keeps bubble above Nobita’s head */
-  background: white;
-  border: 2px solid #333;
-  border-radius: 50% / 40%;
-  padding: 15px;
-  width: 230px;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 2px solid #000;
+  padding: 10px;
+  border-radius: 50px;
+  width: 220px;
   text-align: center;
-  box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
 }
 
-.goal-input,
-.date-input,
-.time-input {
+.thought-bubble input {
+  display: block;
   width: 90%;
-  margin: 6px 0;
-  padding: 6px 8px;
+  margin: 5px auto;
+  padding: 5px;
   border: 1px solid #aaa;
   border-radius: 6px;
-  font-size: 14px;
 }
 
-/* Doraemon */
-.doraemon-container {
+.thought-bubble::before,
+.thought-bubble::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid #000;
+}
+
+.thought-bubble::before {
+  width: 25px;
+  height: 25px;
+  bottom: -30px;
+  left: 60px;
+}
+
+.thought-bubble::after {
+  width: 15px;
+  height: 15px;
+  bottom: -50px;
+  left: 40px;
+}
+
+.nobita-img {
+  width: 150px;
   margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+}
+
+.doraemon-wrapper {
+  margin-top: 20px;
+}
+
+.doraemon-img {
+  width: 180px;
+}
+
+.add-btn {
+  margin-top: 10px;
+  padding: 8px 15px;
+  font-size: 16px;
+  border: none;
+  background: #2196f3;
+  color: white;
+  border-radius: 20px;
   cursor: pointer;
-}
-
-.doraemon-image {
-  width: 160px;
-  transition: transform 0.3s;
-}
-
-.doraemon-container:hover .doraemon-image {
-  transform: scale(1.05);
-}
-
-.doraemon-hint {
-  margin-top: 6px;
-  font-size: 14px;
-  color: #333;
 }

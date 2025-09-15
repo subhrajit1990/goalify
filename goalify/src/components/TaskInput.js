@@ -4,56 +4,48 @@ import nobitaImg from "../assets/nobita.png";
 import doraemonImg from "../assets/doraemon.png";
 
 export default function TaskInput({ onAdd }) {
-  const [goal, setGoal] = useState("");
-  const [date, setDate] = useState("");
+  const [text, setText] = useState("");
   const [time, setTime] = useState("");
 
   const handleAdd = () => {
-    if (!goal.trim()) return;
+    if (!text.trim()) return;
     onAdd({
       id: Date.now(),
-      text: goal,
-      date,
+      text,
       time,
-      fromPocket: true,
+      status: "pending",
+      color: "#FFD93D"
     });
-    setGoal("");
-    setDate("");
+    setText("");
     setTime("");
   };
 
   return (
     <div className="taskinput-container">
-      {/* Nobita with bubble */}
+      {/* Nobita with thought bubble */}
       <div className="nobita-wrapper">
-        <div className="bubble">
+        <div className="thought-bubble">
           <input
             type="text"
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
-            placeholder="Enter your goal..."
-            className="goal-input"
+            placeholder="Enter goal..."
+            value={text}
+            onChange={(e) => setText(e.target.value)}
           />
           <input
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            className="date-input"
-          />
-          <input
-            type="time"
+            type="datetime-local"
             value={time}
             onChange={(e) => setTime(e.target.value)}
-            className="time-input"
           />
         </div>
-        <img src={nobitaImg} alt="Nobita" className="nobita-image" />
+        <img src={nobitaImg} alt="Nobita" className="nobita-img" />
       </div>
 
-      {/* Doraemon as Add button */}
-      <div className="doraemon-container" onClick={handleAdd}>
-        <img src={doraemonImg} alt="Doraemon" className="doraemon-image" />
-        <p className="doraemon-hint">🎒 Click Doraemon to add your goal!</p>
+      {/* Doraemon with Add Goal button */}
+      <div className="doraemon-wrapper">
+        <img src={doraemonImg} alt="Doraemon" className="doraemon-img" />
+        <button className="add-btn" onClick={handleAdd}>
+          ➕ Add Goal
+        </button>
       </div>
     </div>
   );

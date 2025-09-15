@@ -4,30 +4,27 @@ import "../styles/StickyNote.css";
 
 export default function StickyNote({
   task,
-  onMove = () => {},
-  onComplete = () => {},
-  onReschedule = () => {},
-  onDelete = () => {},
-  zIndex = 1,
+  onComplete,
+  onReschedule,
+  onDelete,
+  zIndex
 }) {
   const nodeRef = useRef(null);
   const tiltClass = useMemo(
     () => (Math.random() > 0.5 ? "tilt-left" : "tilt-right"),
     []
   );
-
   const [fromPocket, setFromPocket] = useState(Boolean(task.fromPocket));
 
   useEffect(() => {
     if (task.fromPocket) {
-      // remove animation class after it plays once
-      const t = setTimeout(() => setFromPocket(false), 1000);
+      const t = setTimeout(() => setFromPocket(false), 900);
       return () => clearTimeout(t);
     }
   }, [task.fromPocket]);
 
   function handleStop(_e, data) {
-    onMove(task.id, data.x, data.y);
+    // Save draggable position later if needed
   }
 
   return (
@@ -46,7 +43,7 @@ export default function StickyNote({
         style={{
           background: task.color || "#FFD93D",
           zIndex,
-          touchAction: "none",
+          touchAction: "none"
         }}
       >
         <div className="note-pin">📌</div>
@@ -62,7 +59,18 @@ export default function StickyNote({
               ✅
             </button>
           )}
-          <button className="action-btn" onClick={() => onReschedule(task.id)}>
+          <button
+            className="action-btn"
+            onClick={() => {
+              const newTime = prompt(
+                "Enter new date & time (YYYY-MM-DD HH:mm):",
+                task.time || ""
+              );
+              if (newTime) {
+                onReschedule(task.id, newTime);
+              }
+            }}
+          >
             🔄
           </button>
           <button className="action-btn" onClick={() => onDelete(task.id)}>
