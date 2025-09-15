@@ -14,19 +14,19 @@
 }
 
 .nobita-image {
-  width: 200px;
-  margin-top: 20px;
+  width: 180px;
+  margin-top: 80px; /* pushes Nobita down so bubble looks above his head */
 }
 
-/* Bubble */
+/* Bubble styling */
 .bubble {
   position: absolute;
-  top: -140px; /* position bubble above Nobita */
+  top: -60px; /* keeps bubble above Nobita’s head */
   background: white;
   border: 2px solid #333;
   border-radius: 50% / 40%;
-  padding: 12px;
-  width: 220px;
+  padding: 15px;
+  width: 230px;
   text-align: center;
   box-shadow: 2px 4px 6px rgba(0,0,0,0.2);
 }
@@ -35,7 +35,7 @@
 .date-input,
 .time-input {
   width: 90%;
-  margin: 5px 0;
+  margin: 6px 0;
   padding: 6px 8px;
   border: 1px solid #aaa;
   border-radius: 6px;
@@ -64,26 +64,4 @@
   margin-top: 6px;
   font-size: 14px;
   color: #333;
-}
-
-/* Mobile responsive */
-@media (max-width: 600px) {
-  .bubble {
-    width: 200px;
-    top: -120px;
-  }
-
-  .goal-input,
-  .date-input,
-  .time-input {
-    font-size: 12px;
-  }
-
-  .nobita-image {
-    width: 160px;
-  }
-
-  .doraemon-image {
-    width: 140px;
-  }
 }

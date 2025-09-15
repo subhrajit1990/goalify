@@ -15,7 +15,7 @@ export default function TaskInput({ onAdd }) {
       text: goal,
       date,
       time,
-      fromPocket: true, // triggers Doraemon animation
+      fromPocket: true,
     });
     setGoal("");
     setDate("");
@@ -50,10 +50,10 @@ export default function TaskInput({ onAdd }) {
         <img src={nobitaImg} alt="Nobita" className="nobita-image" />
       </div>
 
-      {/* Doraemon acts as "Add Goal" button */}
+      {/* Doraemon as Add button */}
       <div className="doraemon-container" onClick={handleAdd}>
         <img src={doraemonImg} alt="Doraemon" className="doraemon-image" />
-        <p className="doraemon-hint">👉 Click Doraemon to add your goal!</p>
+        <p className="doraemon-hint">🎒 Click Doraemon to add your goal!</p>
       </div>
     </div>
   );
