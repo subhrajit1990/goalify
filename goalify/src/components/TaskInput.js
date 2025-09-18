@@ -1,40 +1,34 @@
 import React, { useState } from "react";
-import "../styles/TaskInput.css";
-import nobitaImg from "../assets/nobita.png";
-import doraemonImg from "../assets/doraemon.png";
+import "./TaskInput.css";
+import nobitaImg from "../assets/nobita.png";   // Nobita image
+import doraemonImg from "../assets/doraemon.png"; // Doraemon image
 
 export default function TaskInput({ onAdd }) {
-  const [text, setText] = useState("");
-  const [time, setTime] = useState("");
+  const [goal, setGoal] = useState("");
+  const [dateTime, setDateTime] = useState("");
 
   const handleAdd = () => {
-    if (!text.trim()) return;
-    onAdd({
-      id: Date.now(),
-      text,
-      time,
-      status: "pending",
-      color: "#FFD93D"
-    });
-    setText("");
-    setTime("");
+    if (goal.trim() === "" || dateTime === "") return;
+    onAdd({ goal, dateTime });
+    setGoal("");
+    setDateTime("");
   };
 
   return (
-    <div className="taskinput-container">
-      {/* Nobita with thought bubble */}
-      <div className="nobita-wrapper">
+    <div>
+      {/* Nobita with bubble */}
+      <div className="nobita-container">
         <div className="thought-bubble">
           <input
             type="text"
             placeholder="Enter goal..."
-            value={text}
-            onChange={(e) => setText(e.target.value)}
+            value={goal}
+            onChange={(e) => setGoal(e.target.value)}
           />
           <input
             type="datetime-local"
-            value={time}
-            onChange={(e) => setTime(e.target.value)}
+            value={dateTime}
+            onChange={(e) => setDateTime(e.target.value)}
           />
         </div>
         <img src={nobitaImg} alt="Nobita" className="nobita-img" />
@@ -44,7 +38,7 @@ export default function TaskInput({ onAdd }) {
       <div className="doraemon-wrapper">
         <img src={doraemonImg} alt="Doraemon" className="doraemon-img" />
         <button className="add-btn" onClick={handleAdd}>
-          ➕ Add Goal
+          <span>➕</span> Add Goal
         </button>
       </div>
     </div>

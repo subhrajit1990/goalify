@@ -1,48 +1,56 @@
-/* Container for Nobita and bubble */
+/* Nobita container */
 .nobita-container {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 60px;
 }
 
 /* Nobita image */
 .nobita-img {
-  width: 140px;
+  width: 150px;
   height: auto;
 }
 
-/* Thought bubble styling */
+/* Cloud bubble */
 .thought-bubble {
   position: absolute;
-  top: -120px;
+  top: -140px;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
-  padding: 12px;
-  width: 240px;
+  padding: 15px 12px;
+  width: 260px;
+  min-height: 100px;
   text-align: center;
-  font-size: 14px;
   border: 2px solid #000;
-  border-radius: 50%;
-  clip-path: ellipse(65% 45% at 50% 50%);
+  border-radius: 50px;
   box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+
+  /* Make it "cloud-like" */
+  background-image: radial-gradient(circle at 20% 40%, #fff 95%, transparent 96%),
+                    radial-gradient(circle at 80% 40%, #fff 95%, transparent 96%),
+                    radial-gradient(circle at 50% 70%, #fff 95%, transparent 96%);
+  background-size: cover;
 }
 
-/* Inputs inside the bubble */
+/* Inputs inside bubble */
 .thought-bubble input {
   display: block;
   width: 90%;
   margin: 6px auto;
-  padding: 6px;
+  padding: 6px 8px;
   border: 1px solid #aaa;
   border-radius: 8px;
-  font-size: 13px;
+  font-size: 14px;
   text-align: center;
+  z-index: 1;
+  background: white;
+  position: relative;
 }
 
-/* Little trailing bubbles */
+/* Small trailing bubbles */
 .thought-bubble::before,
 .thought-bubble::after {
   content: "";
@@ -55,14 +63,14 @@
 .thought-bubble::before {
   width: 22px;
   height: 22px;
-  bottom: -28px;
+  bottom: -30px;
   left: 65px;
 }
 
 .thought-bubble::after {
   width: 14px;
   height: 14px;
-  bottom: -46px;
+  bottom: -50px;
   left: 48px;
 }
 
@@ -71,17 +79,17 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 40px;
+  margin-top: 80px;
 }
 
 .doraemon-img {
-  width: 180px;
+  width: 200px;
   height: auto;
 }
 
 /* Add Goal button */
 .add-btn {
-  margin-top: 10px;
+  margin-top: 12px;
   padding: 10px 22px;
   font-size: 16px;
   border: none;
@@ -99,10 +107,10 @@
   background: #1976d2;
 }
 
-/* ⚡ Mobile friendly */
+/* ⚡ Responsive */
 @media (max-width: 600px) {
   .thought-bubble {
-    width: 200px;
+    width: 220px;
     padding: 10px;
     font-size: 13px;
   }
@@ -112,7 +120,7 @@
   }
 
   .doraemon-img {
-    width: 150px;
+    width: 160px;
   }
 
   .add-btn {
