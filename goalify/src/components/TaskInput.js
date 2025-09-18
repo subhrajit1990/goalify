@@ -1,44 +1,57 @@
 import React, { useState } from "react";
+import nobitaImg from "../assets/nobita.png";
+import doraemonImg from "../assets/doraemon.png";
 import "../styles/TaskInput.css";
-import nobitaImg from "../assets/nobita.png";   // Nobita image
-import doraemonImg from "../assets/doraemon.png"; // Doraemon image
 
 export default function TaskInput({ onAdd }) {
-  const [goal, setGoal] = useState("");
-  const [dateTime, setDateTime] = useState("");
+  const [text, setText] = useState("");
+  const [time, setTime] = useState("");
 
   const handleAdd = () => {
-    if (goal.trim() === "" || dateTime === "") return;
-    onAdd({ goal, dateTime });
-    setGoal("");
-    setDateTime("");
+    if (!text.trim() || !time) return;
+
+    const newTask = {
+      id: Date.now(),
+      text,
+      time,
+      status: "pending",
+      color: "#FFD93D",
+      x: 50,
+      y: 50,
+      fromPocket: true
+    };
+
+    onAdd(newTask);
+    setText("");
+    setTime("");
   };
 
   return (
-    <div>
+    <div className="task-input-container">
       {/* Nobita with bubble */}
       <div className="nobita-container">
+        <img src={nobitaImg} alt="Nobita" className="nobita-img" />
+
         <div className="thought-bubble">
           <input
             type="text"
             placeholder="Enter goal..."
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
           />
           <input
             type="datetime-local"
-            value={dateTime}
-            onChange={(e) => setDateTime(e.target.value)}
+            value={time}
+            onChange={(e) => setTime(e.target.value)}
           />
         </div>
-        <img src={nobitaImg} alt="Nobita" className="nobita-img" />
       </div>
 
-      {/* Doraemon with Add Goal button */}
+      {/* Doraemon with Add Button */}
       <div className="doraemon-wrapper">
         <img src={doraemonImg} alt="Doraemon" className="doraemon-img" />
         <button className="add-btn" onClick={handleAdd}>
-          <span>➕</span> Add Goal
+          ➕ Add Goal
         </button>
       </div>
     </div>
