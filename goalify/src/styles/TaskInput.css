@@ -1,33 +1,36 @@
-.taskinput-container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin: 20px auto;
-  text-align: center;
-}
-
-/* Nobita + Bubble */
-.nobita-wrapper {
+/* Container for Nobita and bubble */
+.nobita-container {
   position: relative;
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
 
+/* Nobita image */
+.nobita-img {
+  width: 140px;
+  height: auto;
+}
+
+/* Thought bubble styling */
 .thought-bubble {
   position: absolute;
   top: -120px;
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
-  border: 2px solid #000;
   padding: 12px;
-  width: 220px;
+  width: 240px;
   text-align: center;
-  border-radius: 30px;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  font-size: 14px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  clip-path: ellipse(65% 45% at 50% 50%);
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
 }
 
+/* Inputs inside the bubble */
 .thought-bubble input {
   display: block;
   width: 90%;
@@ -35,10 +38,11 @@
   padding: 6px;
   border: 1px solid #aaa;
   border-radius: 8px;
-  font-size: 14px;
+  font-size: 13px;
+  text-align: center;
 }
 
-/* Little cloud dots */
+/* Little trailing bubbles */
 .thought-bubble::before,
 .thought-bubble::after {
   content: "";
@@ -49,61 +53,70 @@
 }
 
 .thought-bubble::before {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   bottom: -28px;
-  left: 60px;
+  left: 65px;
 }
 
 .thought-bubble::after {
-  width: 12px;
-  height: 12px;
-  bottom: -45px;
-  left: 40px;
+  width: 14px;
+  height: 14px;
+  bottom: -46px;
+  left: 48px;
 }
 
-.nobita-img {
-  width: 140px;
-  max-width: 35vw;
-}
-
-/* Doraemon + Add button */
+/* Doraemon section */
 .doraemon-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 40px;
 }
 
 .doraemon-img {
-  width: 160px;
-  max-width: 40vw;
+  width: 180px;
+  height: auto;
 }
 
+/* Add Goal button */
 .add-btn {
-  margin-top: 12px;
-  padding: 8px 18px;
+  margin-top: 10px;
+  padding: 10px 22px;
   font-size: 16px;
   border: none;
+  border-radius: 20px;
   background: #2196f3;
   color: white;
-  border-radius: 20px;
   cursor: pointer;
   transition: 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .add-btn:hover {
   background: #1976d2;
 }
 
-/* 📱 Mobile tweaks */
+/* ⚡ Mobile friendly */
 @media (max-width: 600px) {
-  .taskinput-container {
-    flex-direction: column;
-    gap: 20px;
+  .thought-bubble {
+    width: 200px;
+    padding: 10px;
+    font-size: 13px;
   }
 
-  .thought-bubble {
-    width: 180px;
-    top: -100px;
+  .nobita-img {
+    width: 120px;
+  }
+
+  .doraemon-img {
+    width: 150px;
+  }
+
+  .add-btn {
+    font-size: 14px;
+    padding: 8px 16px;
   }
 }
