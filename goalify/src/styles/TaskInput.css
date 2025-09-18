@@ -1,130 +1,101 @@
-/* Nobita container */
+/* Container for Nobita and bubble */
 .nobita-container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 60px;
+  text-align: center;
+  margin-top: 20px;
 }
 
 /* Nobita image */
 .nobita-img {
-  width: 150px;
+  width: 160px;
+  max-width: 40%;
   height: auto;
 }
 
-/* Cloud bubble */
+/* Thought bubble */
 .thought-bubble {
   position: absolute;
-  top: -140px;
+  top: -120px; /* move above Nobita’s head */
   left: 50%;
   transform: translateX(-50%);
-  background: #fff;
-  padding: 15px 12px;
   width: 260px;
-  min-height: 100px;
-  text-align: center;
+  padding: 12px;
+  background: #fff;
   border: 2px solid #000;
-  border-radius: 50px;
-  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  z-index: 10;
+}
 
-  /* Make it "cloud-like" */
-  background-image: radial-gradient(circle at 20% 40%, #fff 95%, transparent 96%),
-                    radial-gradient(circle at 80% 40%, #fff 95%, transparent 96%),
-                    radial-gradient(circle at 50% 70%, #fff 95%, transparent 96%);
-  background-size: cover;
+/* Bubble “thought dots” */
+.thought-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  transform: translateX(-50%);
+}
+
+.thought-bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -40px;
+  left: 52%;
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 50%;
+  transform: translateX(-50%);
 }
 
 /* Inputs inside bubble */
 .thought-bubble input {
-  display: block;
-  width: 90%;
-  margin: 6px auto;
-  padding: 6px 8px;
+  padding: 8px;
   border: 1px solid #aaa;
   border-radius: 8px;
   font-size: 14px;
-  text-align: center;
-  z-index: 1;
-  background: white;
-  position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Small trailing bubbles */
-.thought-bubble::before,
-.thought-bubble::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid #000;
-}
-
-.thought-bubble::before {
-  width: 22px;
-  height: 22px;
-  bottom: -30px;
-  left: 65px;
-}
-
-.thought-bubble::after {
-  width: 14px;
-  height: 14px;
-  bottom: -50px;
-  left: 48px;
-}
-
-/* Doraemon section */
+/* Doraemon & button */
 .doraemon-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 80px;
+  margin-top: 30px;
 }
 
 .doraemon-img {
-  width: 200px;
+  width: 180px;
+  max-width: 50%;
   height: auto;
 }
 
-/* Add Goal button */
 .add-btn {
   margin-top: 12px;
-  padding: 10px 22px;
-  font-size: 16px;
-  border: none;
-  border-radius: 20px;
   background: #2196f3;
   color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 16px;
   cursor: pointer;
-  transition: 0.2s ease;
   display: flex;
   align-items: center;
   gap: 6px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
 }
 
 .add-btn:hover {
   background: #1976d2;
-}
-
-/* ⚡ Responsive */
-@media (max-width: 600px) {
-  .thought-bubble {
-    width: 220px;
-    padding: 10px;
-    font-size: 13px;
-  }
-
-  .nobita-img {
-    width: 120px;
-  }
-
-  .doraemon-img {
-    width: 160px;
-  }
-
-  .add-btn {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
 }
